@@ -60,7 +60,42 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
                     result_vulnerabilities.append(vulnerability)
     return result_vulnerabilities
 
+# Update, Restart & Delete Agents
 
+def upgrade_agents(agents: list[str]):
+
+    # Agent list converted to string for api sintax
+    agents_str = ','.join(map(str, agents))
+
+    response = requests.put(url + '/agents/upgrade', data = { 'agents_list' : agents_str })
+
+def restart_agents(agents: list[str]):
+
+    # Agent list converted to string for api sintax
+    agents_str = ','.join(map(str, agents))
+
+    response = requests.put(url + '/agents/restart', data = { 'agents_list' : agents_str })
+
+def delete_agents(agents: list[str]):
+
+    """
+    
+    API documentation:
+
+        https://documentation.wazuh.com/current/user-manual/api/reference.html#operation/api.controllers.agent_controller.delete_agents
+
+    """
+
+    # Agent list converted to string for api sintax
+    agents_str = ','.join(map(str, agents))
+
+    params = { 'pretty' : True, 'older_than' : '0s', 'agents_list' : agents_str }
+
+    response = requests.put(url + '/agents/restart', data = params)
+
+# Show agents that share a vulnerability
+# TODO: create logic for requirement
+# def get_agents_with_common_vulnerabilities() -> list[dict]:
 
 def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]:
     """Función que devuelve el top n de vulnerabilidades más comunes.
@@ -162,10 +197,36 @@ def get_groups(request_header: dict)->json:
     Returns:
         json: Formato de cadena de json que posee los grupos del servidor.
     """
-     response = requests.get(url + "/groups",  headers=request_header)
+    response = requests.get(url + "/groups",  headers=request_header)
     groups = json.loads(response.text)["data"]
     
     return json.dumps(groups, indent=4)
+
+def get_task_status() -> list:
+
+    """
+
+    This function resturns every task status
+
+    Args:
+
+        none
+
+    Returns:
+
+        list: List containing every task and their status
+    
+    API documentation:
+
+        https://documentation.wazuh.com/current/user-manual/api/reference.html#operation/api.controllers.syscollector_controller.get_processes_info
+
+    """
+
+    response = requests.get(url + "/tasks/status")
+
+    tasks_status = json.loads(response.text)["data"]["affected_items"]
+
+    return tasks_status
 
 def print_functions(response_list: list, operation: int, n: int = None):
     """Función que permite mostrar el resultado de las operaciones que se hacen con la API

@@ -162,7 +162,7 @@ def get_groups(request_header: dict)->json:
     Returns:
         json: Formato de cadena de json que posee los grupos del servidor.
     """
-     response = requests.get(url + "/groups",  headers=request_header)
+    response = requests.get(url + "/groups",  headers=request_header)
     groups = json.loads(response.text)["data"]
     
     return json.dumps(groups, indent=4)

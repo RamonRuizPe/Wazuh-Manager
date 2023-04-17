@@ -11,6 +11,57 @@ host = 'localhost' # Se coloca la IP si el servidor no está alojado en el local
 port = 55000 # Puerto sugerido por Wazuh
 url = f'{protocol}://{host}:{port}'
 
+def vulnerability_by_criticality(severity, request_header: dict):
+    """Función que devuelve las vulnerabilidades según su criticidad
+
+    Args:
+        severity: Criticidad 
+        request_header (dict): Encabezado con el token para hacer correctamente la solicitud
+
+    """
+    vulnerabilities = []
+
+    response = requests.get(url + "/agents", headers=request_header)
+    agents = response.json()["data"]["affected_items"]
+
+    for agent in agents:
+        agent_id = agent['id']
+        params = {"severity": severity}
+        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, params=params)
+
+        agent_vulnerabilities = response.json()["data"]["affected_items"]
+        for vulnerability in agent_vulnerabilities:
+            vulnerability["agent_id"] = agent_id
+        
+        vulnerabilities.extend(agent_vulnerabilities)
+    
+    return vulnerabilities
+
+def vulnerabilities_by_keyword(keyword, request_header: dict):
+    """Función que devuleve las vulnerabilidades por alguna palabra clave
+
+     Args:
+        keyword: Palabra clave
+        request_header (dict): Encabezado con el token para hacer correctamente la solicitud
+    """
+    result_vulnerabilities = []
+
+    response = requests.get(url + "/agents", headers=request_header)
+    agents = response.json()["data"]["affected_items"]
+
+    for agent in agents:
+        agent_id = agent['id']
+        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
+
+        if response.status_code == 200:
+            vulnerabilities = response.json()["data"]["affected_items"]
+            for vulnerability in vulnerabilities:
+                if keyword.lower() in vulnerability['name'].lower():
+                    result_vulnerabilities.append(vulnerability)
+    return result_vulnerabilities
+
+
+
 def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]:
     """Función que devuelve el top n de vulnerabilidades más comunes.
 
@@ -101,6 +152,20 @@ def get_log_summary(request_header: dict)->json:
     log_summary = json.loads(response.text)["data"]
     
     return json.dumps(log_summary, indent=4)
+
+def get_groups(request_header: dict)->json:
+    """Función que devuelve los grupos del servidor de Wazuh
+
+    Args:
+        request_header (dict): Encabezado con el token para hacer correctamente la solicitud
+    
+    Returns:
+        json: Formato de cadena de json que posee los grupos del servidor.
+    """
+     response = requests.get(url + "/groups",  headers=request_header)
+    groups = json.loads(response.text)["data"]
+    
+    return json.dumps(groups, indent=4)
 
 def print_functions(response_list: list, operation: int, n: int = None):
     """Función que permite mostrar el resultado de las operaciones que se hacen con la API

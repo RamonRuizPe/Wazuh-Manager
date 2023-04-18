@@ -475,6 +475,7 @@ class Ui_MainWindow(object):
         self.pushButton_8.clicked.connect(self.save_log_summary) # Descarga del sumario
         self.label_31.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar todos los grupos:</p></body></html>"))
         self.pushButton_9.setText(_translate("MainWindow", "Descargar"))
+        self.pushButton_9.clicked.connect(self.save_groups)
         self.label_32.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar estatus de las tareas:</p></body></html>"))
         self.pushButton_10.setText(_translate("MainWindow", "Descargar"))
         self.pushButton_10.clicked.connect(self.get_tasks_status)
@@ -546,6 +547,10 @@ class Ui_MainWindow(object):
     def save_log_summary(self):
         json_log = APIMethods.get_log_summary(self.header)
         JsonToTopicMap.json_to_xtm(json_log, "log_summary")
+
+    def save_groups(self):
+        json_groups = APIMethods.get_groups(self.header)
+        JsonToTopicMap.json_to_xtm(json_groups, "log_summary")
 
     def get_tasks_status(self):
         json_tasks = APIMethods.get_task_status(self.header)

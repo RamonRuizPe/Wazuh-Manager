@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import ApiLogger
+import APILogger
 import APIMethods
 import JsonToTopicMap
 
@@ -412,7 +412,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Para comenzar genere un token</p></body></html>"))
         self.pushButton.setText(_translate("MainWindow", "Generar"))
-        self.lineEdit.setText(_translate("MainWindow", "Token..."))
+        self.lineEdit.setPlaceholderText("Token...")
         self.pushButton_2.setText(_translate("MainWindow", "Limpiar"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Token), _translate("MainWindow", "Token"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
@@ -452,7 +452,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "Agente"))
 
         self.label_23.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
-        self.lineEdit_5.setText(_translate("MainWindow", "Vulnerabilidad"))
+        self.lineEdit_5.setPlaceholderText("Vulnerabilidad")
         self.pushButton_15.setText(_translate("MainWindow", "Buscar"))
         self.label_24.setText(_translate("MainWindow", "Mostrar equipos que tengan alguna vulnerabilidad en común:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainWindow", "En común"))
@@ -481,7 +481,7 @@ class Ui_MainWindow(object):
 
 # Funciones propias
     def get_header(self):
-        self.header = ApiLogger.get_header()
+        self.header = APILogger.get_header()
         return None
     
     def upgrade_agents(self):

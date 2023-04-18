@@ -62,36 +62,25 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
 
 # Update, Restart & Delete Agents
 
-def upgrade_agents(agents: list[str]):
+def upgrade_agents(agents: str, request_header: dict) -> str :
 
-    # Agent list converted to string for api sintax
-    agents_str = ','.join(map(str, agents))
+    response = requests.put(url + '/agents/upgrade', data = { 'agents_list' : agents }, headers=request_header)
 
-    response = requests.put(url + '/agents/upgrade', data = { 'agents_list' : agents_str })
+    return response.json()["message"]
 
-def restart_agents(agents: list[str]):
+def restart_agents(agents: str, request_header: dict) -> str :
 
-    # Agent list converted to string for api sintax
-    agents_str = ','.join(map(str, agents))
+    response = requests.put(url + '/agents/restart', data = { 'agents_list' : agents }, headers=request_header)
 
-    response = requests.put(url + '/agents/restart', data = { 'agents_list' : agents_str })
+    return response.json()["message"]
 
-def delete_agents(agents: list[str]):
+def delete_agents(agents: str, request_header: dict) -> str :
 
-    """
-    
-    API documentation:
+    params = { 'pretty' : True, 'older_than' : '0s', 'agents_list' : agents }
 
-        https://documentation.wazuh.com/current/user-manual/api/reference.html#operation/api.controllers.agent_controller.delete_agents
+    response = requests.put(url + '/agents/restart', data = params, headers=request_header)
 
-    """
-
-    # Agent list converted to string for api sintax
-    agents_str = ','.join(map(str, agents))
-
-    params = { 'pretty' : True, 'older_than' : '0s', 'agents_list' : agents_str }
-
-    response = requests.put(url + '/agents/restart', data = params)
+    return response.json()["message"]
 
 # Show agents that share a vulnerability
 # TODO: create logic for requirement

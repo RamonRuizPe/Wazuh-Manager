@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import APILogger
+import ApiLogger
 import APIMethods
 import JsonToTopicMap
 
@@ -434,12 +434,23 @@ class Ui_MainWindow(object):
         self.pushButton_11.setText(_translate("MainWindow", "Buscar"))
         self.label_19.setText(_translate("MainWindow", "Busca vulnerabilidades por alguna palabra clave:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Palabra clave"))
+
+        # Agente
+
         self.label_20.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
+        
         self.pushButton_12.setText(_translate("MainWindow", "Actualizar"))
+        self.pushButton_12.clicked.connect(self.upgrade_agents)
+
         self.pushButton_13.setText(_translate("MainWindow", "Reiniciar"))
+        self.pushButton_13.clicked.connect(self.restart_agents)
+
         self.pushButton_14.setText(_translate("MainWindow", "Borrar"))
+        self.pushButton_14.clicked.connect(self.delete_agents)
+
         self.label_21.setText(_translate("MainWindow", "Modifica el agente:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "Agente"))
+
         self.label_23.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
         self.lineEdit_5.setText(_translate("MainWindow", "Vulnerabilidad"))
         self.pushButton_15.setText(_translate("MainWindow", "Buscar"))
@@ -470,8 +481,30 @@ class Ui_MainWindow(object):
 
 # Funciones propias
     def get_header(self):
-        self.header = APILogger.get_header()
+        self.header = ApiLogger.get_header()
         return None
+    
+    def upgrade_agents(self):
+        lineEdit_string = self.lineEdit_4.text()
+        result = APIMethods.upgrade_agents(lineEdit_string, self.header)
+        self.addElementToAgentLog(result)
+
+    def restart_agents(self):
+        lineEdit_string = self.lineEdit_4.text()
+        result = APIMethods.restart_agents(lineEdit_string, self.header)
+        self.addElementToAgentLog(result)
+    
+    def delete_agents(self):
+        lineEdit_string = self.lineEdit_4.text()
+        result = APIMethods.delete_agents(lineEdit_string, self.header)
+        self.addElementToAgentLog(result)
+
+    def addElementToAgentLog(self, line: str):
+        #listView_8
+        model = QtGui.QStandardItemModel()
+        self.listView_8.setModel(model)
+        item = QtGui.QStandardItem(str(line))
+        model.appendRow(item)
     
     def top_10_vulnerabilities(self):
         top_10 = APIMethods.top_n_vulnerabilities(10, self.header)

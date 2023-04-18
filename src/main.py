@@ -9,7 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import APILogger
+import APIMethods
+import JsonToTopicMap
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -213,11 +215,9 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_7 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 987, 457))
         self.scrollAreaWidgetContents_7.setObjectName("scrollAreaWidgetContents_7")
-        self.tableWidget = QtWidgets.QTableWidget(self.scrollAreaWidgetContents_7)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 0, 991, 461))
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
-        self.tableWidget.setRowCount(0)
+        self.listView_7 = QtWidgets.QListView(self.scrollAreaWidgetContents_7)
+        self.listView_7.setGeometry(QtCore.QRect(-5, 1, 991, 461))
+        self.listView_7.setObjectName("listView_7")
         self.scrollArea_7.setWidget(self.scrollAreaWidgetContents_7)
         self.verticalLayout_11.addWidget(self.scrollArea_7)
         self.label_19 = QtWidgets.QLabel(self.tab)
@@ -265,9 +265,9 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_8 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_8.setGeometry(QtCore.QRect(0, 0, 987, 457))
         self.scrollAreaWidgetContents_8.setObjectName("scrollAreaWidgetContents_8")
-        self.tableView = QtWidgets.QTableView(self.scrollAreaWidgetContents_8)
-        self.tableView.setGeometry(QtCore.QRect(0, 0, 991, 461))
-        self.tableView.setObjectName("tableView")
+        self.listView_8 = QtWidgets.QListView(self.scrollAreaWidgetContents_8)
+        self.listView_8.setGeometry(QtCore.QRect(-5, 1, 991, 461))
+        self.listView_8.setObjectName("listView_8")
         self.scrollArea_8.setWidget(self.scrollAreaWidgetContents_8)
         self.verticalLayout_13.addWidget(self.scrollArea_8)
         self.tabWidget.addTab(self.tab_5, "")
@@ -301,9 +301,9 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_9 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_9.setGeometry(QtCore.QRect(0, 0, 987, 457))
         self.scrollAreaWidgetContents_9.setObjectName("scrollAreaWidgetContents_9")
-        self.tableView_2 = QtWidgets.QTableView(self.scrollAreaWidgetContents_9)
-        self.tableView_2.setGeometry(QtCore.QRect(0, 0, 991, 461))
-        self.tableView_2.setObjectName("tableView_2")
+        self.listView_9 = QtWidgets.QListView(self.scrollAreaWidgetContents_9)
+        self.listView_9.setGeometry(QtCore.QRect(0, 0, 991, 461))
+        self.listView_9.setObjectName("listView_9")
         self.scrollArea_9.setWidget(self.scrollAreaWidgetContents_9)
         self.verticalLayout_16.addWidget(self.scrollArea_9)
         self.label_24 = QtWidgets.QLabel(self.tab_7)
@@ -360,14 +360,49 @@ class Ui_MainWindow(object):
         self.pushButton_17.setGeometry(QtCore.QRect(710, 660, 93, 28))
         self.pushButton_17.setObjectName("pushButton_17")
         self.tabWidget.addTab(self.tab_6, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1)
+        self.tab_3 = QtWidgets.QWidget()
+        self.tab_3.setObjectName("tab_3")
+        self.label_28 = QtWidgets.QLabel(self.tab_3)
+        self.label_28.setGeometry(QtCore.QRect(0, 0, 1081, 341))
+        self.label_28.setStyleSheet("font: 28pt \"Rockwell\";")
+        self.label_28.setObjectName("label_28")
+        self.label_29 = QtWidgets.QLabel(self.tab_3)
+        self.label_29.setGeometry(QtCore.QRect(310, 340, 311, 31))
+        self.label_29.setStyleSheet("font: 12pt \"Segoe UI Variable\";")
+        self.label_29.setObjectName("label_29")
+        self.pushButton_7 = QtWidgets.QPushButton(self.tab_3)
+        self.pushButton_7.setGeometry(QtCore.QRect(720, 340, 93, 28))
+        self.pushButton_7.setObjectName("pushButton_7")
+        self.label_30 = QtWidgets.QLabel(self.tab_3)
+        self.label_30.setGeometry(QtCore.QRect(310, 400, 311, 31))
+        self.label_30.setStyleSheet("font: 12pt \"Segoe UI Variable\";")
+        self.label_30.setObjectName("label_30")
+        self.pushButton_8 = QtWidgets.QPushButton(self.tab_3)
+        self.pushButton_8.setGeometry(QtCore.QRect(720, 400, 93, 28))
+        self.pushButton_8.setObjectName("pushButton_8")
+        self.label_31 = QtWidgets.QLabel(self.tab_3)
+        self.label_31.setGeometry(QtCore.QRect(310, 460, 311, 31))
+        self.label_31.setStyleSheet("font: 12pt \"Segoe UI Variable\";")
+        self.label_31.setObjectName("label_31")
+        self.pushButton_9 = QtWidgets.QPushButton(self.tab_3)
+        self.pushButton_9.setGeometry(QtCore.QRect(720, 460, 93, 28))
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.label_32 = QtWidgets.QLabel(self.tab_3)
+        self.label_32.setGeometry(QtCore.QRect(310, 520, 311, 31))
+        self.label_32.setStyleSheet("font: 12pt \"Segoe UI Variable\";")
+        self.label_32.setObjectName("label_32")
+        self.pushButton_10 = QtWidgets.QPushButton(self.tab_3)
+        self.pushButton_10.setGeometry(QtCore.QRect(720, 520, 93, 28))
+        self.pushButton_10.setObjectName("pushButton_10")
+        self.tabWidget.addTab(self.tab_3, "")
+        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -415,9 +450,55 @@ class Ui_MainWindow(object):
         self.label_26.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Agente</span></p></body></html>"))
         self.label_27.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Vulnerabilidad</span></p></body></html>"))
         self.pushButton_16.setText(_translate("MainWindow", "Actualizar"))
+        self.pushButton_16.clicked.connect(self.top_10_agents)
         self.pushButton_17.setText(_translate("MainWindow", "Actualizar"))
+        self.pushButton_17.clicked.connect(self.top_10_vulnerabilities)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MainWindow", "Top 10"))
+        self.label_28.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:72pt; color:#00aaff;\">Wazuh</span></p></body></html>"))
+        self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar reporte de configuración:</p></body></html>"))
+        self.pushButton_7.setText(_translate("MainWindow", "Descargar"))
+        self.label_30.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar inf de logs y resumen:</p></body></html>"))
+        self.pushButton_8.setText(_translate("MainWindow", "Descargar"))
+        self.label_31.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar todos los grupos:</p></body></html>"))
+        self.pushButton_9.setText(_translate("MainWindow", "Descargar"))
+        self.label_32.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar estatus de las tareas:</p></body></html>"))
+        self.pushButton_10.setText(_translate("MainWindow", "Descargar"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Configuración"))
 
+# Funciones propias
+    def get_header(self):
+        self.header = APILogger.get_header()
+        return None
+    
+    def top_10_vulnerabilities(self):
+        top_10 = APIMethods.top_n_vulnerabilities(10, self.header)
+        # top_10 = [('uno', 1), ('dos', 2), ('tres', 3)]
+        model = QtGui.QStandardItemModel()
+        self.listView_2.setModel(model)
+        
+        for i in top_10:
+            str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            item = QtGui.QStandardItem(str(str_item))
+            model.appendRow(item)
+        
+        self.verticalLayout_18.removeWidget(self.listView_2)
+        self.verticalLayout_18.addWidget(self.listView_2)
+        
+    def top_10_agents(self):
+        top_10 = APIMethods.top_n_agents(10, self.header)
+        # top_10 = [('uno', 1), ('dos', 2), ('tres', 3)]
+        model = QtGui.QStandardItemModel()
+        self.listView.setModel(model)
+        
+        for i in top_10:
+            str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            item = QtGui.QStandardItem(str(str_item))
+            model.appendRow(item)
+        
+        self.verticalLayout_17.removeWidget(self.listView)
+        self.verticalLayout_17.addWidget(self.listView)
+    
+    
 
 if __name__ == "__main__":
     import sys

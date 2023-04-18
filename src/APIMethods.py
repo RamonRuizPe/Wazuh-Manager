@@ -107,9 +107,14 @@ def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]
     Returns:
         list[tuple[Any, int]]: Lista con elemento tupla donde se indica el elemento y la cantidad de repeticiones que tuvo.
     """
-    response = requests.get(url + "/vulnerability", headers=request_header)
-    # Se filtra por "data" de acuerdo a la información que se indica en la documentación de la API.
-    vulnerabilities = json.loads(response.text)["data"]
+    response = requests.get(url + "/agents", headers=request_header)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    for agent in agents:
+        response = requests.get(url + f"/vulnerability/{agent}", headers=request_header)
+        # Se filtra por "data" de acuerdo a la información que se indica en la documentación de la API.
+        vulnerabilities = json.loads(response.text)["data"]["affected_items"]
     
     # Counter recibe un iterador, por lo que se tiene que generar filtrando del total de vulnerabilidades.
     vul_count = Counter([vulnerability["cve"] for vulnerability in vulnerabilities])

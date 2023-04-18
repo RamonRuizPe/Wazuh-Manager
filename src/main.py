@@ -436,6 +436,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Vulnerabilidades"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
         self.pushButton_11.setText(_translate("MainWindow", "Buscar"))
+        self.pushButton_11.clicked.connect(self.vulnerabilities_by_keyword)
+
         self.label_19.setText(_translate("MainWindow", "Busca vulnerabilidades por alguna palabra clave:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Palabra clave"))
 
@@ -543,10 +545,19 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.removeWidget(self.listView_6)
         self.horizontalLayout_5.addWidget(self.listView_6)
 
-    """def vulnerabilities_by_keyword(self):
-        vulnerabilities = APIMethods.vulnerabilities_by_keyword(, self.header)
+    def vulnerabilities_by_keyword(self):
+        lineEdit_string = self.lineEdit_3.text()
+        vulnerabilities = APIMethods.vulnerabilities_by_keyword(lineEdit_string, self.header)
         model = QtGui.QStandardItemModel()
-        self.listView_7.setModel(model)"""
+        self.listView_7.setModel(model)
+
+        for i in vulnerabilities:
+            str_item = f"{i}"
+            item = QtGui.QStandardItem(str(str_item))
+            model.appendRow(item)
+        
+        self.verticalLayout_11.removeWidget(self.listView_7)
+        self.verticalLayout_11.addWidget(self.listView_7)
 
     def upgrade_agents(self):
         lineEdit_string = self.lineEdit_4.text()

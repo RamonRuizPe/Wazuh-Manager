@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import ApiLogger
+import APILogger
 import APIMethods
 import JsonToTopicMap
 
@@ -140,7 +140,7 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_4 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_4.setGeometry(QtCore.QRect(560, 200, 241, 461))
         self.horizontalLayoutWidget_4.setObjectName("horizontalLayoutWidget_4")
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.verticalLayoutWidget_4)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_4)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.scrollArea_3 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_4)
@@ -490,7 +490,7 @@ class Ui_MainWindow(object):
 
 # Funciones propias
     def get_header(self):
-        self.header = ApiLogger.get_header()
+        self.header = APILogger.get_header()
         return None
 
     def vulnerability_by_criticality_critical(self):

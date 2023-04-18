@@ -78,12 +78,12 @@ class Ui_MainWindow(object):
         self.label_4.setStyleSheet("font: 28pt \"Rockwell\";")
         self.label_4.setObjectName("label_4")
         self.verticalLayout_4.addWidget(self.label_4)
-        self.verticalLayout_03Widget = QtWidgets.QWidget(self.tab_2)
-        self.verticalLayout_03Widget.setGeometry(QtCore.QRect(0, 200, 251, 461))
-        self.verticalLayout_03Widget.setObjectName("verticalLayout_03Widget")
-        self.verticalLayout_03 = QtWidgets.QHBoxLayout(self.verticalLayout_03Widget)
-        self.verticalLayout_03.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_03.setObjectName("verticalLayout_03")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.tab_2)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 200, 251, 461))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.scrollArea = QtWidgets.QScrollArea(self.verticalLayoutWidget)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
@@ -123,9 +123,9 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget_3 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(280, 200, 251, 461))
         self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
-        self.verticalLayout_04 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
-        self.verticalLayout_04.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_04.setObjectName("verticalLayout_04")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.scrollArea_2 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_3)
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
@@ -136,13 +136,13 @@ class Ui_MainWindow(object):
         self.listView_4.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_4.setObjectName("listView_4")
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_04.addWidget(self.scrollArea_2)
+        self.horizontalLayout_3.addWidget(self.scrollArea_2)
         self.horizontalLayoutWidget_4 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_4.setGeometry(QtCore.QRect(560, 200, 241, 461))
         self.horizontalLayoutWidget_4.setObjectName("horizontalLayoutWidget_4")
-        self.verticalLayout_05 = QtWidgets.QHBoxLayout(self.verticalLayoutWidget_4)
-        self.verticalLayout_05.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_05.setObjectName("verticalLayout_05")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.verticalLayoutWidget_4)
+        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.scrollArea_3 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_4)
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollArea_3.setObjectName("scrollArea_3")
@@ -153,13 +153,13 @@ class Ui_MainWindow(object):
         self.listView_5.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_5.setObjectName("listView_5")
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
-        self.verticalLayout_05.addWidget(self.scrollArea_3)
+        self.horizontalLayout_4.addWidget(self.scrollArea_3)
         self.horizontalLayoutWidget_5 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(830, 200, 251, 461))
         self.horizontalLayoutWidget_5.setObjectName("horizontalLayoutWidget_5")
-        self.verticalLayout_06 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
-        self.verticalLayout_06.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_06.setObjectName("verticalLayout_06")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
+        self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.scrollArea_4 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_5)
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollArea_4.setObjectName("scrollArea_4")
@@ -170,7 +170,7 @@ class Ui_MainWindow(object):
         self.listView_6.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_6.setObjectName("listView_6")
         self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
-        self.verticalLayout_06.addWidget(self.scrollArea_4)
+        self.horizontalLayout_5.addWidget(self.scrollArea_4)
         self.label_10 = QtWidgets.QLabel(self.tab_2)
         self.label_10.setGeometry(QtCore.QRect(340, 150, 131, 31))
         self.label_10.setStyleSheet("font: 75 20pt \"Rockwell\";")
@@ -501,8 +501,8 @@ class Ui_MainWindow(object):
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
-        self.verticalLayout_03.removeWidget(self.listView_3)
-        self.verticalLayout_03.addWidget(self.listView_3)
+        self.horizontalLayout.removeWidget(self.listView_3)
+        self.horizontalLayout.addWidget(self.listView_3)
 
     def vulnerability_by_criticality_high(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("High", self.header)
@@ -514,8 +514,8 @@ class Ui_MainWindow(object):
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
-        self.verticalLayout04_.removeWidget(self.listView_4)
-        self.verticalLayout04_.addWidget(self.listView_4)
+        self.horizontalLayout_3.removeWidget(self.listView_4)
+        self.horizontalLayout_3.addWidget(self.listView_4)
 
     def vulnerability_by_criticality_medium(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("Medium", self.header)
@@ -527,8 +527,8 @@ class Ui_MainWindow(object):
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
-        self.verticalLayout_05.removeWidget(self.listView_5)
-        self.verticalLayout_05.addWidget(self.listView_5)
+        self.horizontalLayout_4.removeWidget(self.listView_5)
+        self.horizontalLayout_4.addWidget(self.listView_5)
 
     def vulnerability_by_criticality_low(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("Low", self.header)
@@ -540,13 +540,13 @@ class Ui_MainWindow(object):
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
-        self.verticalLayout_06.removeWidget(self.listView_6)
-        self.verticalLayout_06.addWidget(self.listView_6)
+        self.horizontalLayout_5.removeWidget(self.listView_6)
+        self.horizontalLayout_5.addWidget(self.listView_6)
 
-    def vulnerabilities_by_keyword(self):
+    """def vulnerabilities_by_keyword(self):
         vulnerabilities = APIMethods.vulnerabilities_by_keyword(, self.header)
         model = QtGui.QStandardItemModel()
-        self.listView_7.setModel(model)
+        self.listView_7.setModel(model)"""
 
     def upgrade_agents(self):
         lineEdit_string = self.lineEdit_4.text()

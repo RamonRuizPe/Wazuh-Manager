@@ -457,7 +457,7 @@ class Ui_MainWindow(object):
         self.label_28.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:72pt; color:#00aaff;\">Wazuh</span></p></body></html>"))
         self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar reporte de configuración:</p></body></html>"))
         self.pushButton_7.setText(_translate("MainWindow", "Descargar"))
-        self.pushButton_7.clicked.connect(self.save_configuration) # Descarga de la configuración
+        self.pushButton_7.clicked.connect(self.save_configuration) # Descarga de la
         self.label_30.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar inf de logs y resumen:</p></body></html>"))
         self.pushButton_8.setText(_translate("MainWindow", "Descargar"))
         self.pushButton_8.clicked.connect(self.save_logs) # Descarga de los logs

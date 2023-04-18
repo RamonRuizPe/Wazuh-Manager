@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<topicMap xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.topicmaps.org/xtm/1.0/" id="Prueba.hytm">
+  <topic id="t_person">
+    <baseName>
+      <baseNameString>person</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_name">
+    <instanceOf>
+      <topicRef xlink:href="#t_person"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>name</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_John">
+    <instanceOf>
+      <topicRef xlink:href="#t_name"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>John Smith</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_age">
+    <instanceOf>
+      <topicRef xlink:href="#t_person"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>age</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_35">
+    <instanceOf>
+      <topicRef xlink:href="#t_age"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>35</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_address">
+    <baseName>
+      <baseNameString>address</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_street">
+    <instanceOf>
+      <topicRef xlink:href="#t_address"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>street</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_123">
+    <instanceOf>
+      <topicRef xlink:href="#t_street"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>123 Main St</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_city">
+    <instanceOf>
+      <topicRef xlink:href="#t_address"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>city</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_Anytown">
+    <instanceOf>
+      <topicRef xlink:href="#t_city"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>Anytown</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_state">
+    <instanceOf>
+      <topicRef xlink:href="#t_address"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>state</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_CA">
+    <instanceOf>
+      <topicRef xlink:href="#t_state"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>CA</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_zip">
+    <instanceOf>
+      <topicRef xlink:href="#t_address"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>zip</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_12345">
+    <instanceOf>
+      <topicRef xlink:href="#t_zip"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>12345</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_company">
+    <baseName>
+      <baseNameString>company</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_name">
+    <instanceOf>
+      <topicRef xlink:href="#t_company"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>name</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_Acme">
+    <instanceOf>
+      <topicRef xlink:href="#t_name"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>Acme Corp</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_industry">
+    <instanceOf>
+      <topicRef xlink:href="#t_company"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>industry</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_Manufacturing">
+    <instanceOf>
+      <topicRef xlink:href="#t_industry"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>Manufacturing</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_employees">
+    <instanceOf>
+      <topicRef xlink:href="#t_company"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>employees</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_1000">
+    <instanceOf>
+      <topicRef xlink:href="#t_employees"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>1000</baseNameString>
+    </baseName>
+  </topic>
+</topicMap>

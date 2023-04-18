@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<topicMap xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.topicmaps.org/xtm/1.0/" id="Prueba.hytm">
+  <topic id="t__id">
+    <baseName>
+      <baseNameString>_id</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_5973782bdb9a930533b05cb2">
+    <instanceOf>
+      <topicRef xlink:href="#t__id"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>5973782bdb9a930533b05cb2</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_isActive">
+    <baseName>
+      <baseNameString>isActive</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_True">
+    <instanceOf>
+      <topicRef xlink:href="#t_isActive"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>True</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_balance">
+    <baseName>
+      <baseNameString>balance</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_thousand">
+    <instanceOf>
+      <topicRef xlink:href="#t_balance"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>$1,446.35</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_age">
+    <baseName>
+      <baseNameString>age</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_32">
+    <instanceOf>
+      <topicRef xlink:href="#t_age"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>32</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_eyeColor">
+    <baseName>
+      <baseNameString>eyeColor</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_green">
+    <instanceOf>
+      <topicRef xlink:href="#t_eyeColor"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>green</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_name">
+    <baseName>
+      <baseNameString>name</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_Logan">
+    <instanceOf>
+      <topicRef xlink:href="#t_name"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>Logan Keller</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_gender">
+    <baseName>
+      <baseNameString>gender</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_male">
+    <instanceOf>
+      <topicRef xlink:href="#t_gender"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>male</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_company">
+    <baseName>
+      <baseNameString>company</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_ARTIQ">
+    <instanceOf>
+      <topicRef xlink:href="#t_company"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>ARTIQ</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_email">
+    <baseName>
+      <baseNameString>email</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_logankeller">
+    <instanceOf>
+      <topicRef xlink:href="#t_email"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>logankeller@artiq.com</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_phone">
+    <baseName>
+      <baseNameString>phone</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_num">
+    <instanceOf>
+      <topicRef xlink:href="#t_phone"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>+1 (952) 533-2258</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_friends">
+    <baseName>
+      <baseNameString>friends</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_id">
+    <instanceOf>
+      <topicRef xlink:href="#t_friends"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>id</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_id"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_name">
+    <instanceOf>
+      <topicRef xlink:href="#t_friends"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>name</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_Colon">
+    <instanceOf>
+      <topicRef xlink:href="#t_name"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>Colon Salazar</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_id">
+    <instanceOf>
+      <topicRef xlink:href="#t_friends"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>id</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_1">
+    <instanceOf>
+      <topicRef xlink:href="#t_id"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>1</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_name">
+    <instanceOf>
+      <topicRef xlink:href="#t_friends"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>name</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_French">
+    <instanceOf>
+      <topicRef xlink:href="#t_name"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>French Mcneil</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_id">
+    <instanceOf>
+      <topicRef xlink:href="#t_friends"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>id</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_2">
+    <instanceOf>
+      <topicRef xlink:href="#t_id"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>2</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_name">
+    <instanceOf>
+      <topicRef xlink:href="#t_friends"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>name</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_Carol">
+    <instanceOf>
+      <topicRef xlink:href="#t_name"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>Carol Martin</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_favoriteFruit">
+    <baseName>
+      <baseNameString>favoriteFruit</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_banana">
+    <instanceOf>
+      <topicRef xlink:href="#t_favoriteFruit"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>banana</baseNameString>
+    </baseName>
+  </topic>
+</topicMap>

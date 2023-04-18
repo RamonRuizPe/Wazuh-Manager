@@ -86,7 +86,7 @@ def delete_agents(agents: str, request_header: dict) -> str :
 # TODO: create logic for requirement
 def get_vulnerabilities_with_agents(request_header: dict) -> dict:
 
-    result = {}
+    result : dict[str : [str]] = {}
     band = False
 
     response_agents = requests.get(url + "/agents", headers=request_header)
@@ -123,7 +123,8 @@ def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]
     agents = json.loads(response.text)["data"]["affected_items"]
     
     for agent in agents:
-        response = requests.get(url + f"/vulnerability/{agent}", headers=request_header)
+        agent_id = agent["id"]
+        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
         # Se filtra por "data" de acuerdo a la información que se indica en la documentación de la API.
         vulnerabilities = json.loads(response.text)["data"]["affected_items"]
     
@@ -148,11 +149,12 @@ def top_n_agents(n: int, request_header: dict) -> list[dict]:
     
     agent_vulnerabilities = []
     for agent in agents:
+        agent_id = agent["id"]
         # Acceso a las vulnerabilidades por agente
-        vul_response = requests.get(url + f"/vulnerability/{agent}", headers=request_header)
+        vul_response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
         vulnerabilities = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
         total_vul = len(vulnerabilities)
-        agent_vulnerabilities.append({"agent" : agent, "vulnerabilities" : total_vul})
+        agent_vulnerabilities.append({"agent" : agent_id, "vulnerabilities" : total_vul})
     # Se ordena descendentemente la lista con la llave "vulnerabilities" del diccionario
     return sorted(agent_vulnerabilities, key=itemgetter("vulnerabilities"), reverse=True)[:n]
 

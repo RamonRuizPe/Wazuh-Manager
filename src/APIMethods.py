@@ -84,7 +84,29 @@ def delete_agents(agents: str, request_header: dict) -> str :
 
 # Show agents that share a vulnerability
 # TODO: create logic for requirement
-# def get_agents_with_common_vulnerabilities() -> list[dict]:
+def get_vulnerabilities_with_agents(request_header: dict) -> dict:
+
+    result = {}
+    band = False
+
+    response_agents = requests.get(url + "/agents", headers=request_header)
+    agents = json.loads(response_agents.text)["data"]["affected_items"]
+
+    for agent in agents:
+        agent_id = agent["id"]
+        response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
+        vulnerabilities = json.loads(response_vul.text)["data"]["affected_items"]
+        for vulnerability in vulnerabilities:
+            band = False
+            for key in result:
+                if key == vulnerability["cve"]:
+                    band = True
+                    result[key]["agents"].append(agent_id)
+                    break
+            if band == False:
+                result[vulnerability["cve"]]["agents"] = [agent_id]
+
+    return result
 
 def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]:
     """Función que devuelve el top n de vulnerabilidades más comunes.
@@ -182,7 +204,7 @@ def get_log_summary(request_header: dict)->json:
     
     return json.dumps(log_summary, indent=4)
 
-def get_groups(request_header: dict)->list[dict]:
+def get_groups(request_header: dict)->json:
     """Función que devuelve los grupos del servidor de Wazuh
 
     Args:
@@ -196,7 +218,7 @@ def get_groups(request_header: dict)->list[dict]:
     
     return json.dumps(groups, indent=4)
 
-def get_task_status() -> json:
+def get_task_status(request_header: dict) -> json:
 
     """
 
@@ -216,7 +238,7 @@ def get_task_status() -> json:
 
     """
 
-    response = requests.get(url + "/tasks/status")
+    response = requests.get(url + "/tasks/status", headers=request_header)
 
     tasks_status = json.loads(response.text)["data"]["affected_items"]
 

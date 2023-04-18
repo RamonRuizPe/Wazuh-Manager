@@ -283,9 +283,9 @@ class Ui_MainWindow(object):
         self.label_23.setStyleSheet("font: 28pt \"Rockwell\";")
         self.label_23.setObjectName("label_23")
         self.verticalLayout_15.addWidget(self.label_23)
-        self.lineEdit_5 = QtWidgets.QLineEdit(self.tab_7)
-        self.lineEdit_5.setGeometry(QtCore.QRect(40, 140, 241, 31))
-        self.lineEdit_5.setObjectName("lineEdit_5")
+        #self.lineEdit_5 = QtWidgets.QLineEdit(self.tab_7)
+        #self.lineEdit_5.setGeometry(QtCore.QRect(40, 140, 241, 31))
+        #self.lineEdit_5.setObjectName("lineEdit_5")
         self.pushButton_15 = QtWidgets.QPushButton(self.tab_7)
         self.pushButton_15.setGeometry(QtCore.QRect(310, 140, 93, 28))
         self.pushButton_15.setObjectName("pushButton_15")
@@ -452,8 +452,9 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "Agente"))
 
         self.label_23.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
-        self.lineEdit_5.setPlaceholderText("Vulnerabilidad")
+        #self.lineEdit_5.setPlaceholderText("Vulnerabilidad")
         self.pushButton_15.setText(_translate("MainWindow", "Buscar"))
+        self.pushButton_15.clicked.connect(self.get_common_agent_vulnerabilites)
         self.label_24.setText(_translate("MainWindow", "Mostrar equipos que tengan alguna vulnerabilidad en común:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MainWindow", "En común"))
         self.label_22.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
@@ -507,6 +508,21 @@ class Ui_MainWindow(object):
         self.listView_8.setModel(model)
         item = QtGui.QStandardItem(str(line))
         model.appendRow(item)
+
+    def get_common_agent_vulnerabilites(self):
+        #listView_9
+        model = QtGui.QStandardItemModel()
+        self.listView_9.setModel(model)
+        api_res = APIMethods.get_vulnerabilities_with_agents(self.header)
+        for key, value in api_res:
+            if len(value) > 1:
+                string = "Agents "
+                for agent in value:
+                    str += f"{agent}, "
+                string = f" have {key} as a common vulnerability."
+                item = QtGui.QStandardItem(string)
+                model.appendRow(item)
+
     
     def top_10_vulnerabilities(self):
         top_10 = APIMethods.top_n_vulnerabilities(10, self.header)

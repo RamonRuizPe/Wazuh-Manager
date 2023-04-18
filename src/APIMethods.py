@@ -155,7 +155,7 @@ def get_configuration(request_header: dict)->json:
         json: Formato de cadena de json que posee la configuración del servidor
     """
     response = requests.get(url + "/manager/configuration", headers=request_header)
-    configuration = json.loads(response.text)["data"]
+    configuration = json.loads(response.text)["data"]["affected_items"]
     
     # Se regresa en formato json-string para su próximo manejo
     return json.dumps(configuration, indent=4)
@@ -175,7 +175,7 @@ def get_logs(request_header: dict)->json:
     #   failed_items
     #   total_failed_items
     #   affected_items
-    logs = json.loads(response.text)["data"]
+    logs = json.loads(response.text)["data"]["affected_items"]
     return json.dumps(logs, indent=4)
 
 def get_log_summary(request_header: dict)->json:
@@ -189,7 +189,7 @@ def get_log_summary(request_header: dict)->json:
     """
     response = requests.get(url + "/manager/logs/summary",  headers=request_header)
     # Son bastantes campos los que devuelve el json, con un máximo de los últimos 2000 registros
-    log_summary = json.loads(response.text)["data"]
+    log_summary = json.loads(response.text)["data"]["affected_items"]
     
     return json.dumps(log_summary, indent=4)
 
@@ -203,7 +203,7 @@ def get_groups(request_header: dict)->json:
         json: Formato de cadena de json que posee los grupos del servidor.
     """
     response = requests.get(url + "/groups",  headers=request_header)
-    groups = json.loads(response.text)["data"]
+    groups = json.loads(response.text)["data"]["affected_items"]
     
     return json.dumps(groups, indent=4)
 

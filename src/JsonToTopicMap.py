@@ -1,7 +1,8 @@
 import json
+from datetime import date
 from lxml import etree
 
-def json_to_xtm(json_str):
+def json_to_xtm(json_str, file_name: str = f"{date.today()}"):
     # Generación del elemento json para ser modificado
     json_obj = json.loads(json_str)
 
@@ -29,30 +30,32 @@ def json_to_xtm(json_str):
             value_elem.text = str(value)
             
     # Se devuelve el árbol XTM creado.
-    # xtm = etree.tostring(root, pretty_print=True, encoding=str)
     et = etree.ElementTree(root)
-    et.write('output.xml', pretty_print=True, xml_declaration=True,   encoding="utf-8")
+    file_name = file_name + f"_{date.today()}" if file_name in str(date.today()) else file_name
+    et.write(f'{file_name}.xtm', pretty_print=True, xml_declaration=True,   encoding="utf-8")
     return None
 
-# json_str = '''
-# {
-#     "person": {
-#         "name": "John Smith",
-#         "age": 35,
-#         "address": {
-#             "street": "123 Main St",
-#             "city": "Anytown",
-#             "state": "CA",
-#             "zip": "12345"
-#         }
-#     },
-#     "company": {
-#         "name": "Acme Corp",
-#         "industry": "Manufacturing",
-#         "employees": 1000
-#     }
-# }
-# '''
+json_str = '''
+{
+    "person": {
+        "name": "John Smith",
+        "age": 35,
+        "address": {
+            "street": "123 Main St",
+            "city": "Anytown",
+            "state": "CA",
+            "zip": "12345"
+        }
+    },
+    "company": {
+        "name": "Acme Corp",
+        "industry": "Manufacturing",
+        "employees": 1000
+    }
+}
+'''
+# print(json.loads(json_str))
+# print(json.loads(json.dumps(json_str)))
 # json_to_xtm(json_str)
 
 

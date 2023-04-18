@@ -457,8 +457,11 @@ class Ui_MainWindow(object):
         self.label_28.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:72pt; color:#00aaff;\">Wazuh</span></p></body></html>"))
         self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar reporte de configuración:</p></body></html>"))
         self.pushButton_7.setText(_translate("MainWindow", "Descargar"))
+        self.pushButton_7.clicked.connect(self.save_configuration) # Descarga de la configuración
         self.label_30.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar inf de logs y resumen:</p></body></html>"))
         self.pushButton_8.setText(_translate("MainWindow", "Descargar"))
+        self.pushButton_8.clicked.connect(self.save_logs) # Descarga de los logs
+        self.pushButton_8.clicked.connect(self.save_log_summary) # Descarga del sumario
         self.label_31.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar todos los grupos:</p></body></html>"))
         self.pushButton_9.setText(_translate("MainWindow", "Descargar"))
         self.label_32.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar estatus de las tareas:</p></body></html>"))
@@ -498,7 +501,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_17.removeWidget(self.listView)
         self.verticalLayout_17.addWidget(self.listView)
     
+    def save_configuration(self):
+        json_conf = APIMethods.get_configuration(self.header)
+        JsonToTopicMap.json_to_xtm(json_conf, "configuration")
     
+    def save_logs(self):
+        json_log = APIMethods.get_logs(self.header)
+        JsonToTopicMap.json_to_xtm(json_log, "logs")
+        
+    def save_log_summary(self):
+        json_log = APIMethods.get_log_summary(self.header)
+        JsonToTopicMap.json_to_xtm(json_log, "log_summary")
 
 if __name__ == "__main__":
     import sys

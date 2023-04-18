@@ -182,7 +182,7 @@ def get_log_summary(request_header: dict)->json:
     
     return json.dumps(log_summary, indent=4)
 
-def get_groups(request_header: dict)->json:
+def get_groups(request_header: dict)->list[dict]:
     """Función que devuelve los grupos del servidor de Wazuh
 
     Args:
@@ -196,7 +196,7 @@ def get_groups(request_header: dict)->json:
     
     return json.dumps(groups, indent=4)
 
-def get_task_status() -> list:
+def get_task_status() -> json:
 
     """
 
@@ -220,7 +220,7 @@ def get_task_status() -> list:
 
     tasks_status = json.loads(response.text)["data"]["affected_items"]
 
-    return tasks_status
+    return json.dumps(get_task_status, indent=4)
 
 def print_functions(response_list: list, operation: int, n: int = None):
     """Función que permite mostrar el resultado de las operaciones que se hacen con la API

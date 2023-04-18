@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import APILogger
+import ApiLogger
 import APIMethods
 import JsonToTopicMap
 
@@ -477,11 +477,12 @@ class Ui_MainWindow(object):
         self.pushButton_9.setText(_translate("MainWindow", "Descargar"))
         self.label_32.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar estatus de las tareas:</p></body></html>"))
         self.pushButton_10.setText(_translate("MainWindow", "Descargar"))
+        self.pushButton_10.clicked.connect(self.get_tasks_status)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Configuración"))
 
 # Funciones propias
     def get_header(self):
-        self.header = APILogger.get_header()
+        self.header = ApiLogger.get_header()
         return None
     
     def upgrade_agents(self):
@@ -545,6 +546,10 @@ class Ui_MainWindow(object):
     def save_log_summary(self):
         json_log = APIMethods.get_log_summary(self.header)
         JsonToTopicMap.json_to_xtm(json_log, "log_summary")
+
+    def get_tasks_status(self):
+        json_tasks = APIMethods.get_task_status(self.header)
+        JsonToTopicMap.json_to_xtm(json_tasks, "tasks_status")
 
 if __name__ == "__main__":
     import sys

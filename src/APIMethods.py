@@ -4,7 +4,7 @@ import requests # Librería para realizar las peticiones a la API de Wazuh
 import json # Librería para manejar las respuestas que otorga la API.
 from collections import Counter # Módulo importado para realizar cuenta de las repeticiones de vulnerabilidades.
 from operator import itemgetter # Módulo empleado para tomar un elemento o su puntero.
-from APILogger import get_host
+from ApiLogger import get_host
 import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -94,19 +94,18 @@ def get_vulnerabilities_with_agents(request_header: dict) -> dict:
     band = False
 
     response_agents = requests.get(url + "/agents", headers=request_header, verify=False)
-    agents = json.loads(response_agents.text)["data"]["affected_items"]
-                
+    agents = json.loads(response_agents.text)["data"]["affected_items"]         
     for agent in agents:
         agent_id = agent["id"]
-        response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
-        vulnerabilities = json.loads(response_vul.text)["data"]["affected_items"]
-        for vulnerability in vulnerabilities:
+        response_vul = requests.get(url + f"/vulnerability/{agent_id}/summary/cve", headers=request_header, verify=False)
+        vulnerabilities_cve : dict = json.loads(response_vul.text)["data"]["cve"]
+        for cve in vulnerabilities_cve.keys():
             band = False
-            if vulnerability["cve"] in result:
-                result[vulnerability["cve"]].append(agent_id)
+            if cve in result:
+                result[cve].append(agent_id)
                 band = True
             if band == False:
-                result[vulnerability["cve"]] = [agent_id]
+                result[cve] = [agent_id]
 
     return result
 

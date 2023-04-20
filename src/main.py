@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import APILogger
+import ApiLogger
 import APIMethods
 import JsonToTopicMap
 
@@ -492,7 +492,7 @@ class Ui_MainWindow(object):
 
 # Funciones propias
     def get_header(self):
-        self.header = APILogger.get_header()
+        self.header = ApiLogger.get_header()
         self.lineEdit.setText("Token generado con éxito") if self.header is not None else self.lineEdit.setText("No funcionó unu")
         return None
 
@@ -593,12 +593,13 @@ class Ui_MainWindow(object):
         model = QtGui.QStandardItemModel()
         self.listView_9.setModel(model)
         api_res = APIMethods.get_vulnerabilities_with_agents(self.header)
+        print("Method worked")
         for key in api_res.keys():
             if len(api_res[key]):
                 string = "Agents "
                 for agent in api_res[key]:
-                    str += f"{agent}, "
-                string = f" have {key} as a common vulnerability."
+                    string += f"{agent}, "
+                string += f" have {key} as a common vulnerability."
                 item = QtGui.QStandardItem(string)
                 model.appendRow(item)
     

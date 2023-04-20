@@ -25,7 +25,10 @@ def json_to_xtm(json_str, file_name: str = f"Prueba.hytm"):
         parent_key = key
         
         if isinstance(value, dict) or isinstance(value, list):
-            check_inner_dict(value, root, parent_key)
+            if len(value) > 1:
+                check_inner_dict(value, root, parent_key)
+            else:
+                print(value)
         else:
             # Agregar el valor como una propiedad del tema
             value_elem = etree.SubElement(root, "topic")
@@ -47,41 +50,42 @@ def json_to_xtm(json_str, file_name: str = f"Prueba.hytm"):
     return None
 
 def check_inner_dict(inner_dict, parent, parent_key = None):
-    if isinstance(inner_dict, list) and isinstance(inner_dict[0], dict):
-        for item in inner_dict:
-            for key, value in item.items():
-                if isinstance(value, dict):
-                    value_elem = etree.SubElement(parent, "topic")
-                    value_elem.set("id", f"t_{key}")
-                    name_elem = etree.SubElement(value_elem, "baseName")
-                    str_name_elem = etree.SubElement(name_elem, "baseNameString")
-                    str_name_elem.text = key
-                    check_inner_dict(value, parent, key)
-                else:
-                    key_elem = etree.SubElement(parent, "topic")
-                    if len(key.split()) > 1:
-                        key_elem.set("id", f"t_{key.split()[0]}")
+    if isinstance(inner_dict, list):
+        if isinstance(inner_dict[0], dict):
+            for item in inner_dict:
+                for key, value in item.items():
+                    if isinstance(value, dict):
+                        value_elem = etree.SubElement(parent, "topic")
+                        value_elem.set("id", f"t_{key}")
+                        name_elem = etree.SubElement(value_elem, "baseName")
+                        str_name_elem = etree.SubElement(name_elem, "baseNameString")
+                        str_name_elem.text = key
+                        check_inner_dict(value, parent, key)
                     else:
-                        key_elem.set("id", f"t_{key}")
-                    if parent_key is not None:
-                        instance_elem = etree.SubElement(key_elem, "instanceOf")
+                        key_elem = etree.SubElement(parent, "topic")
+                        if len(key.split()) > 1:
+                            key_elem.set("id", f"t_{key.split()[0]}")
+                        else:
+                            key_elem.set("id", f"t_{key}")
+                        if parent_key is not None:
+                            instance_elem = etree.SubElement(key_elem, "instanceOf")
+                            topic_ref_elem = etree.SubElement(instance_elem, "topicRef")
+                            topic_ref_elem.set("{http://www.w3.org/1999/xlink}href", f"#t_{parent_key}")
+                        name_elem = etree.SubElement(key_elem, "baseName")
+                        str_name_elem = etree.SubElement(name_elem, "baseNameString")
+                        str_name_elem.text = str(key)
+                        
+                        value_elem = etree.SubElement(parent, "topic")
+                        if len(str(value).split()) > 1:
+                            value_elem.set("id", f"t_{value.split()[0]}")
+                        else:
+                            value_elem.set("id", f"t_{str(value)}")
+                        instance_elem = etree.SubElement(value_elem, "instanceOf")
                         topic_ref_elem = etree.SubElement(instance_elem, "topicRef")
-                        topic_ref_elem.set("{http://www.w3.org/1999/xlink}href", f"#t_{parent_key}")
-                    name_elem = etree.SubElement(key_elem, "baseName")
-                    str_name_elem = etree.SubElement(name_elem, "baseNameString")
-                    str_name_elem.text = str(key)
-                    
-                    value_elem = etree.SubElement(parent, "topic")
-                    if len(str(value).split()) > 1:
-                        value_elem.set("id", f"t_{value.split()[0]}")
-                    else:
-                        value_elem.set("id", f"t_{str(value)}")
-                    instance_elem = etree.SubElement(value_elem, "instanceOf")
-                    topic_ref_elem = etree.SubElement(instance_elem, "topicRef")
-                    topic_ref_elem.set("{http://www.w3.org/1999/xlink}href", f"#t_{key}")
-                    name_elem = etree.SubElement(value_elem, "baseName")
-                    str_name_elem = etree.SubElement(name_elem, "baseNameString")
-                    str_name_elem.text = str(value)
+                        topic_ref_elem.set("{http://www.w3.org/1999/xlink}href", f"#t_{key}")
+                        name_elem = etree.SubElement(value_elem, "baseName")
+                        str_name_elem = etree.SubElement(name_elem, "baseNameString")
+                        str_name_elem.text = str(value)
     else:
         for key, value in inner_dict.items():
             if isinstance(value, dict):

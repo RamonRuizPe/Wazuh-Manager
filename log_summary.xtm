@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<topicMap xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.topicmaps.org/xtm/1.0/" id="Prueba.hytm">
+  <topic id="t_affected_items">
+    <baseName>
+      <baseNameString>affected_items</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_total_affected_items">
+    <baseName>
+      <baseNameString>total_affected_items</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_1">
+    <instanceOf>
+      <topicRef xlink:href="#t_total_affected_items"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>1</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_total_failed_items">
+    <baseName>
+      <baseNameString>total_failed_items</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_total_failed_items"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_failed_items">
+    <baseName>
+      <baseNameString>failed_items</baseNameString>
+    </baseName>
+  </topic>
+</topicMap>

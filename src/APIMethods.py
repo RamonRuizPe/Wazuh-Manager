@@ -4,10 +4,14 @@ import requests # Librería para realizar las peticiones a la API de Wazuh
 import json # Librería para manejar las respuestas que otorga la API.
 from collections import Counter # Módulo importado para realizar cuenta de las repeticiones de vulnerabilidades.
 from operator import itemgetter # Módulo empleado para tomar un elemento o su puntero.
+from APILogger import get_host
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Configuración de la conexión
 protocol = 'https'
-host = 'localhost' # Se coloca la IP si el servidor no está alojado en el local.
+host =  get_host() # Se coloca la IP si el servidor no está alojado en el local.
 port = 55000 # Puerto sugerido por Wazuh
 url = f'{protocol}://{host}:{port}'
 
@@ -21,13 +25,13 @@ def vulnerability_by_criticality(severity, request_header: dict):
     """
     vulnerabilities = []
 
-    response = requests.get(url + "/agents", headers=request_header)
+    response = requests.get(url + "/agents", headers=request_header, verify=False)
     agents = response.json()["data"]["affected_items"]
 
     for agent in agents:
         agent_id = agent['id']
         params = {"severity": severity}
-        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, params=params)
+        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, params=params, verify=False)
 
         agent_vulnerabilities = response.json()["data"]["affected_items"]
         for vulnerability in agent_vulnerabilities:
@@ -46,12 +50,12 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
     """
     result_vulnerabilities = []
 
-    response = requests.get(url + "/agents", headers=request_header)
+    response = requests.get(url + "/agents", headers=request_header, verify=False)
     agents = response.json()["data"]["affected_items"]
 
     for agent in agents:
         agent_id = agent['id']
-        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
+        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
 
         if response.status_code == 200:
             vulnerabilities = response.json()["data"]["affected_items"]
@@ -64,13 +68,13 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
 
 def upgrade_agents(agents: str, request_header: dict) -> str :
 
-    response = requests.put(url + '/agents/upgrade', data = { 'agents_list' : agents }, headers=request_header)
-
+    response = requests.put(url + '/agents/upgrade', params = { 'agents_list' : agents }, headers=request_header, verify=False)
+    print(response.json())
     return response.json()["message"]
 
 def restart_agents(agents: str, request_header: dict) -> str :
 
-    response = requests.put(url + '/agents/restart', data = { 'agents_list' : agents }, headers=request_header)
+    response = requests.put(url + '/agents/restart', params = { 'agents_list' : agents }, headers=request_header, verify=False)
 
     return response.json()["message"]
 
@@ -78,7 +82,7 @@ def delete_agents(agents: str, request_header: dict) -> str :
 
     params = { 'pretty' : True, 'older_than' : '0s', 'agents_list' : agents }
 
-    response = requests.put(url + '/agents/restart', data = params, headers=request_header)
+    response = requests.put(url + '/agents/restart', params = params, headers=request_header, verify=False)
 
     return response.json()["message"]
 
@@ -89,12 +93,12 @@ def get_vulnerabilities_with_agents(request_header: dict) -> dict:
     result : dict[str : [str]] = {}
     band = False
 
-    response_agents = requests.get(url + "/agents", headers=request_header)
+    response_agents = requests.get(url + "/agents", headers=request_header, verify=False)
     agents = json.loads(response_agents.text)["data"]["affected_items"]
 
     for agent in agents:
         agent_id = agent["id"]
-        response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
+        response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
         vulnerabilities = json.loads(response_vul.text)["data"]["affected_items"]
         for vulnerability in vulnerabilities:
             band = False
@@ -105,6 +109,18 @@ def get_vulnerabilities_with_agents(request_header: dict) -> dict:
                     break
             if band == False:
                 result[vulnerability["cve"]]["agents"] = [agent_id]
+                
+    # for agent in agents:
+    #     agent_id = agent["id"]
+    #     response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
+    #     vulnerabilities = json.loads(response_vul.text)["data"]["affected_items"]
+    #     for vulnerability in vulnerabilities:
+    #         band = False
+    #         if vulnerability["cve"] in result:
+    #             result[vulnerability["cve"]]["agents"].append(agent_id)
+    #             band = True
+    #         if band == False:
+    #             result[vulnerability["cve"]] = {"agents": [agent_id]}
 
     return result
 
@@ -118,13 +134,13 @@ def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]
     Returns:
         list[tuple[Any, int]]: Lista con elemento tupla donde se indica el elemento y la cantidad de repeticiones que tuvo.
     """
-    response = requests.get(url + "/agents", headers=request_header)
+    response = requests.get(url + "/agents", headers=request_header, verify=False)
     # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
     agents = json.loads(response.text)["data"]["affected_items"]
     
     for agent in agents:
         agent_id = agent["id"]
-        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
+        response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
         # Se filtra por "data" de acuerdo a la información que se indica en la documentación de la API.
         vulnerabilities = json.loads(response.text)["data"]["affected_items"]
     
@@ -143,7 +159,7 @@ def top_n_agents(n: int, request_header: dict) -> list[dict]:
     Returns:
         list[dict]: Lista con los agentes y su total de vulnerabilidades en formato diccionario.
     """
-    response = requests.get(url + "/agents", headers=request_header)
+    response = requests.get(url + "/agents", headers=request_header, verify=False)
     # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
     agents = json.loads(response.text)["data"]["affected_items"]
     
@@ -151,10 +167,9 @@ def top_n_agents(n: int, request_header: dict) -> list[dict]:
     for agent in agents:
         agent_id = agent["id"]
         # Acceso a las vulnerabilidades por agente
-        vul_response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header)
-        vulnerabilities = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
-        total_vul = len(vulnerabilities)
-        agent_vulnerabilities.append({"agent" : agent_id, "vulnerabilities" : total_vul})
+        vul_response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
+        vulnerabilities = json.loads(vul_response.text)["data"]["total_affected_items"] # Filtro para visualizar únicamente la información relevante.
+        agent_vulnerabilities.append({"agent" : agent_id, "vulnerabilities" : vulnerabilities})
     # Se ordena descendentemente la lista con la llave "vulnerabilities" del diccionario
     return sorted(agent_vulnerabilities, key=itemgetter("vulnerabilities"), reverse=True)[:n]
 
@@ -167,8 +182,8 @@ def get_configuration(request_header: dict)->json:
     Returns:
         json: Formato de cadena de json que posee la configuración del servidor
     """
-    response = requests.get(url + "/manager/configuration", headers=request_header)
-    configuration = json.loads(response.text)["data"]["affected_items"]
+    response = requests.get(url + "/manager/configuration", headers=request_header, verify=False)
+    configuration = json.loads(response.text)["data"]
     
     # Se regresa en formato json-string para su próximo manejo
     return json.dumps(configuration, indent=4)
@@ -182,13 +197,13 @@ def get_logs(request_header: dict)->json:
     Returns:
         json: Formato de cadena de json que posee los registros del servidor.
     """
-    response = requests.get(url + "/manager/logs", headers=request_header)
+    response = requests.get(url + "/manager/logs", headers=request_header, verify=False)
     # El json en "data" contiene los siguientes campos:
     #   total_affected_items
     #   failed_items
     #   total_failed_items
     #   affected_items
-    logs = json.loads(response.text)["data"]["affected_items"]
+    logs = json.loads(response.text)["data"]
     return json.dumps(logs, indent=4)
 
 def get_log_summary(request_header: dict)->json:
@@ -200,9 +215,9 @@ def get_log_summary(request_header: dict)->json:
     Returns:
         json: Formato de cadena de json que posee el sumario de los registros del servidor.
     """
-    response = requests.get(url + "/manager/logs/summary",  headers=request_header)
+    response = requests.get(url + "/manager/logs/summary",  headers=request_header, verify=False)
     # Son bastantes campos los que devuelve el json, con un máximo de los últimos 2000 registros
-    log_summary = json.loads(response.text)["data"]["affected_items"]
+    log_summary = json.loads(response.text)["data"]
     
     return json.dumps(log_summary, indent=4)
 
@@ -215,8 +230,8 @@ def get_groups(request_header: dict)->json:
     Returns:
         json: Formato de cadena de json que posee los grupos del servidor.
     """
-    response = requests.get(url + "/groups",  headers=request_header)
-    groups = json.loads(response.text)["data"]["affected_items"]
+    response = requests.get(url + "/groups",  headers=request_header, verify=False)
+    groups = json.loads(response.text)["data"]
     
     return json.dumps(groups, indent=4)
 
@@ -240,11 +255,11 @@ def get_task_status(request_header: dict) -> json:
 
     """
 
-    response = requests.get(url + "/tasks/status", headers=request_header)
+    response = requests.get(url + "/tasks/status", headers=request_header, verify=False)
 
-    tasks_status = json.loads(response.text)["data"]["affected_items"]
+    tasks_status = json.loads(response.text)["data"]
 
-    return json.dumps(get_task_status, indent=4)
+    return json.dumps(tasks_status, indent=4)
 
 def print_functions(response_list: list, operation: int, n: int = None):
     """Función que permite mostrar el resultado de las operaciones que se hacen con la API

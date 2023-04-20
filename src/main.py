@@ -59,7 +59,8 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(self.Token)
         self.pushButton.setGeometry(QtCore.QRect(460, 650, 93, 28))
         self.pushButton.setObjectName("pushButton")
-        self.lineEdit = QtWidgets.QLineEdit(self.Token)
+        # lineEdit -> QLabel
+        self.lineEdit = QtWidgets.QLabel(self.Token)
         self.lineEdit.setGeometry(QtCore.QRect(460, 590, 211, 41))
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton_2 = QtWidgets.QPushButton(self.Token)
@@ -84,17 +85,17 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.scrollArea = QtWidgets.QScrollArea(self.verticalLayoutWidget)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
+        # self.scrollArea = QtWidgets.QScrollArea(self.verticalLayoutWidget)
+        # self.scrollArea.setWidgetResizable(True)
+        # self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 247, 457))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.listView_3 = QtWidgets.QListView(self.scrollAreaWidgetContents)
         self.listView_3.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_3.setObjectName("listView_3")
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.horizontalLayout.addWidget(self.scrollArea)
+        # self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.horizontalLayout.addWidget(self.listView_3)
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(760, 120, 2, 2))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
@@ -126,51 +127,51 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.scrollArea_2 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_3)
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollArea_2.setObjectName("scrollArea_2")
+        # self.scrollArea_2 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_3)
+        # self.scrollArea_2.setWidgetResizable(True)
+        # self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 247, 457))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.listView_4 = QtWidgets.QListView(self.scrollAreaWidgetContents_2)
         self.listView_4.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_4.setObjectName("listView_4")
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-        self.horizontalLayout_3.addWidget(self.scrollArea_2)
+        # self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
+        self.horizontalLayout_3.addWidget(self.listView_4)
         self.horizontalLayoutWidget_4 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_4.setGeometry(QtCore.QRect(560, 200, 241, 461))
         self.horizontalLayoutWidget_4.setObjectName("horizontalLayoutWidget_4")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_4)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.scrollArea_3 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_4)
-        self.scrollArea_3.setWidgetResizable(True)
-        self.scrollArea_3.setObjectName("scrollArea_3")
+        # self.scrollArea_3 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_4)
+        # self.scrollArea_3.setWidgetResizable(True)
+        # self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollAreaWidgetContents_3 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_3.setGeometry(QtCore.QRect(0, 0, 237, 457))
         self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
         self.listView_5 = QtWidgets.QListView(self.scrollAreaWidgetContents_3)
         self.listView_5.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_5.setObjectName("listView_5")
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
-        self.horizontalLayout_4.addWidget(self.scrollArea_3)
+        # self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+        self.horizontalLayout_4.addWidget(self.listView_5)
         self.horizontalLayoutWidget_5 = QtWidgets.QWidget(self.tab_2)
         self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(830, 200, 251, 461))
         self.horizontalLayoutWidget_5.setObjectName("horizontalLayoutWidget_5")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
         self.horizontalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.scrollArea_4 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_5)
-        self.scrollArea_4.setWidgetResizable(True)
-        self.scrollArea_4.setObjectName("scrollArea_4")
+        # self.scrollArea_4 = QtWidgets.QScrollArea(self.horizontalLayoutWidget_5)
+        # self.scrollArea_4.setWidgetResizable(True)
+        # self.scrollArea_4.setObjectName("scrollArea_4")
         self.scrollAreaWidgetContents_4 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_4.setGeometry(QtCore.QRect(0, 0, 247, 457))
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
         self.listView_6 = QtWidgets.QListView(self.scrollAreaWidgetContents_4)
         self.listView_6.setGeometry(QtCore.QRect(0, 0, 251, 461))
         self.listView_6.setObjectName("listView_6")
-        self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
-        self.horizontalLayout_5.addWidget(self.scrollArea_4)
+        # self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
+        self.horizontalLayout_5.addWidget(self.listView_6)
         self.label_10 = QtWidgets.QLabel(self.tab_2)
         self.label_10.setGeometry(QtCore.QRect(340, 150, 131, 31))
         self.label_10.setStyleSheet("font: 75 20pt \"Rockwell\";")
@@ -412,7 +413,8 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Para comenzar genere un token</p></body></html>"))
         self.pushButton.setText(_translate("MainWindow", "Generar"))
-        self.lineEdit.setPlaceholderText("Token...")
+        self.pushButton.clicked.connect(self.get_header)
+        self.lineEdit.setText("")
         self.pushButton_2.setText(_translate("MainWindow", "Limpiar"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Token), _translate("MainWindow", "Token"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Wazuh</span></p></body></html>"))
@@ -491,10 +493,12 @@ class Ui_MainWindow(object):
 # Funciones propias
     def get_header(self):
         self.header = APILogger.get_header()
+        self.lineEdit.setText("Token generado con éxito") if self.header is not None else self.lineEdit.setText("No funcionó unu")
         return None
 
     def vulnerability_by_criticality_critical(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("Critical", self.header)
+        # vulnerabilities = ["a","b","c","d","e","f","g"]
         model = QtGui.QStandardItemModel()
         self.listView_3.setModel(model)
 
@@ -508,6 +512,7 @@ class Ui_MainWindow(object):
 
     def vulnerability_by_criticality_high(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("High", self.header)
+        # vulnerabilities = ["a","b","c","d","e","f"]
         model = QtGui.QStandardItemModel()
         self.listView_4.setModel(model)
 
@@ -521,6 +526,7 @@ class Ui_MainWindow(object):
 
     def vulnerability_by_criticality_medium(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("Medium", self.header)
+        # vulnerabilities = ["a","b","c","d","e"]
         model = QtGui.QStandardItemModel()
         self.listView_5.setModel(model)
 
@@ -534,6 +540,7 @@ class Ui_MainWindow(object):
 
     def vulnerability_by_criticality_low(self):
         vulnerabilities = APIMethods.vulnerability_by_criticality("Low", self.header)
+        # vulnerabilities = ["a","b","c","d"]
         model = QtGui.QStandardItemModel()
         self.listView_6.setModel(model)
 
@@ -617,7 +624,8 @@ class Ui_MainWindow(object):
         self.listView.setModel(model)
         
         for i in top_10:
-            str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            # str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            str_item = i
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
@@ -638,7 +646,7 @@ class Ui_MainWindow(object):
 
     def save_groups(self):
         json_groups = APIMethods.get_groups(self.header)
-        JsonToTopicMap.json_to_xtm(json_groups, "log_summary")
+        JsonToTopicMap.json_to_xtm(json_groups, "groups")
 
     def get_tasks_status(self):
         json_tasks = APIMethods.get_task_status(self.header)

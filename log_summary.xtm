@@ -5,17 +5,421 @@
       <baseNameString>affected_items</baseNameString>
     </baseName>
   </topic>
+  <topic id="t_wazuh-authd">
+    <baseName>
+      <baseNameString>wazuh-authd</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_all">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-authd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>all</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_5">
+    <instanceOf>
+      <topicRef xlink:href="#t_all"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>5</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_info">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-authd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>info</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_2">
+    <instanceOf>
+      <topicRef xlink:href="#t_info"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>2</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_error">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-authd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>error</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_error"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_critical">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-authd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>critical</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_critical"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_warning">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-authd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>warning</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_3">
+    <instanceOf>
+      <topicRef xlink:href="#t_warning"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>3</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_debug">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-authd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>debug</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_debug"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_wazuh-csyslogd">
+    <baseName>
+      <baseNameString>wazuh-csyslogd</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_all">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-csyslogd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>all</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_163">
+    <instanceOf>
+      <topicRef xlink:href="#t_all"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>163</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_info">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-csyslogd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>info</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_info"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_error">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-csyslogd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>error</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_163">
+    <instanceOf>
+      <topicRef xlink:href="#t_error"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>163</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_critical">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-csyslogd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>critical</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_critical"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_warning">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-csyslogd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>warning</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_warning"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_debug">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-csyslogd"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>debug</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_debug"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_wazuh-modulesd:vulnerability-detector">
+    <baseName>
+      <baseNameString>wazuh-modulesd:vulnerability-detector</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_all">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-modulesd:vulnerability-detector"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>all</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_1768">
+    <instanceOf>
+      <topicRef xlink:href="#t_all"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>1768</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_info">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-modulesd:vulnerability-detector"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>info</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_1768">
+    <instanceOf>
+      <topicRef xlink:href="#t_info"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>1768</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_error">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-modulesd:vulnerability-detector"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>error</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_error"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_critical">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-modulesd:vulnerability-detector"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>critical</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_critical"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_warning">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-modulesd:vulnerability-detector"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>warning</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_warning"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_debug">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-modulesd:vulnerability-detector"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>debug</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_debug"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_wazuh-remoted">
+    <baseName>
+      <baseNameString>wazuh-remoted</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_all">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-remoted"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>all</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_64">
+    <instanceOf>
+      <topicRef xlink:href="#t_all"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>64</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_info">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-remoted"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>info</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_4">
+    <instanceOf>
+      <topicRef xlink:href="#t_info"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>4</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_error">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-remoted"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>error</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_error"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_critical">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-remoted"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>critical</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_critical"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_warning">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-remoted"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>warning</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_60">
+    <instanceOf>
+      <topicRef xlink:href="#t_warning"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>60</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_debug">
+    <instanceOf>
+      <topicRef xlink:href="#t_wazuh-remoted"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>debug</baseNameString>
+    </baseName>
+  </topic>
+  <topic id="t_0">
+    <instanceOf>
+      <topicRef xlink:href="#t_debug"/>
+    </instanceOf>
+    <baseName>
+      <baseNameString>0</baseNameString>
+    </baseName>
+  </topic>
   <topic id="t_total_affected_items">
     <baseName>
       <baseNameString>total_affected_items</baseNameString>
     </baseName>
   </topic>
-  <topic id="t_1">
+  <topic id="t_4">
     <instanceOf>
       <topicRef xlink:href="#t_total_affected_items"/>
     </instanceOf>
     <baseName>
-      <baseNameString>1</baseNameString>
+      <baseNameString>4</baseNameString>
     </baseName>
   </topic>
   <topic id="t_total_failed_items">

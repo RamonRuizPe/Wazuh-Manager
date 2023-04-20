@@ -25,7 +25,7 @@ def vulnerability_by_criticality(severity, request_header: dict):
     """
     vulnerabilities = []
 
-    response = requests.get(url + "/agents", headers=request_header, verify=False)
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
     agents = response.json()["data"]["affected_items"]
 
     for agent in agents:
@@ -50,7 +50,7 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
     """
     result_vulnerabilities = []
 
-    response = requests.get(url + "/agents", headers=request_header, verify=False)
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
     agents = response.json()["data"]["affected_items"]
 
     for agent in agents:
@@ -68,13 +68,13 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
 
 def upgrade_agents(agents: str, request_header: dict) -> str :
 
-    response = requests.put(url + '/agents/upgrade', params = { 'agents_list' : agents }, headers=request_header, verify=False)
+    response = requests.put(url + '/agents?limit=20/upgrade', params = { 'agents_list' : agents }, headers=request_header, verify=False)
     print(response.json())
     return response.json()["message"]
 
 def restart_agents(agents: str, request_header: dict) -> str :
 
-    response = requests.put(url + '/agents/restart', params = { 'agents_list' : agents }, headers=request_header, verify=False)
+    response = requests.put(url + '/agents?limit=20/restart', params = { 'agents_list' : agents }, headers=request_header, verify=False)
 
     return response.json()["message"]
 
@@ -82,7 +82,7 @@ def delete_agents(agents: str, request_header: dict) -> str :
 
     params = { 'pretty' : True, 'older_than' : '0s', 'agents_list' : agents }
 
-    response = requests.put(url + '/agents/restart', params = params, headers=request_header, verify=False)
+    response = requests.put(url + '/agents?limit=20/restart', params = params, headers=request_header, verify=False)
 
     return response.json()["message"]
 
@@ -93,7 +93,7 @@ def get_vulnerabilities_with_agents(request_header: dict) -> dict:
     result : dict[str : [str]] = {}
     band = False
 
-    response_agents = requests.get(url + "/agents", headers=request_header, verify=False)
+    response_agents = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
     agents = json.loads(response_agents.text)["data"]["affected_items"]         
     for agent in agents:
         agent_id = agent["id"]
@@ -119,10 +119,11 @@ def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]
     Returns:
         list[tuple[Any, int]]: Lista con elemento tupla donde se indica el elemento y la cantidad de repeticiones que tuvo.
     """
-    response = requests.get(url + "/agents", headers=request_header, verify=False)
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
     # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
     agents = json.loads(response.text)["data"]["affected_items"]
     
+    vulnerabilities = []
     for agent in agents:
         agent_id = agent["id"]
         response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
@@ -130,6 +131,7 @@ def top_n_vulnerabilities(n: int, request_header: dict) -> list[tuple[Any, int]]
         vulnerabilities = json.loads(response.text)["data"]["affected_items"]
     
     # Counter recibe un iterador, por lo que se tiene que generar filtrando del total de vulnerabilidades.
+    # print(vulnerabilities[0])
     vul_count = Counter([vulnerability["cve"] for vulnerability in vulnerabilities])
     
     return vul_count.most_common(n)
@@ -144,7 +146,7 @@ def top_n_agents(n: int, request_header: dict) -> list[dict]:
     Returns:
         list[dict]: Lista con los agentes y su total de vulnerabilidades en formato diccionario.
     """
-    response = requests.get(url + "/agents", headers=request_header, verify=False)
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
     # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
     agents = json.loads(response.text)["data"]["affected_items"]
     
@@ -245,6 +247,132 @@ def get_task_status(request_header: dict) -> json:
     tasks_status = json.loads(response.text)["data"]
 
     return json.dumps(tasks_status, indent=4)
+
+def get_inv_hardware(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/hardware", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_hotfixes(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/hotfixes", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_netaddr(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/netaddr", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_netiface(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/netiface", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_netproto(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    inventory = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/netproto", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        inventory[agent_id] = hard_agent
+    return json.dumps(inventory, indent=4)
+
+def get_inv_os(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/os", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_packages(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/packages", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_ports(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/ports", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
+
+def get_inv_processes(request_header: dict) -> json:
+    response = requests.get(url + "/agents?limit=20", headers=request_header, verify=False)
+    # Debido a que se buscan los agentes con vulnerabilidades, se filtra por elementos afectados.
+    agents = json.loads(response.text)["data"]["affected_items"]
+    
+    hardware = dict()
+    for agent in agents:
+        agent_id = agent["id"]
+        # Acceso a las vulnerabilidades por agente
+        vul_response = requests.get(url + f"/syscollector/{agent_id}/processes", headers=request_header, verify=False)
+        hard_agent = json.loads(vul_response.text)["data"] # Filtro para visualizar únicamente la información relevante.
+        hardware[agent_id] = hard_agent
+    return json.dumps(hardware, indent=4)
 
 def print_functions(response_list: list, operation: int, n: int = None):
     """Función que permite mostrar el resultado de las operaciones que se hacen con la API

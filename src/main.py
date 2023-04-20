@@ -210,17 +210,17 @@ class Ui_MainWindow(object):
         self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_11)
         self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_11.setObjectName("verticalLayout_11")
-        self.scrollArea_7 = QtWidgets.QScrollArea(self.verticalLayoutWidget_11)
-        self.scrollArea_7.setWidgetResizable(True)
-        self.scrollArea_7.setObjectName("scrollArea_7")
+        # self.scrollArea_7 = QtWidgets.QScrollArea(self.verticalLayoutWidget_11)
+        # self.scrollArea_7.setWidgetResizable(True)
+        # self.scrollArea_7.setObjectName("scrollArea_7")
         self.scrollAreaWidgetContents_7 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_7.setGeometry(QtCore.QRect(0, 0, 987, 457))
         self.scrollAreaWidgetContents_7.setObjectName("scrollAreaWidgetContents_7")
         self.listView_7 = QtWidgets.QListView(self.scrollAreaWidgetContents_7)
         self.listView_7.setGeometry(QtCore.QRect(-5, 1, 991, 461))
         self.listView_7.setObjectName("listView_7")
-        self.scrollArea_7.setWidget(self.scrollAreaWidgetContents_7)
-        self.verticalLayout_11.addWidget(self.scrollArea_7)
+        # self.scrollArea_7.setWidget(self.scrollAreaWidgetContents_7)
+        self.verticalLayout_11.addWidget(self.listView_7)
         self.label_19 = QtWidgets.QLabel(self.tab)
         self.label_19.setGeometry(QtCore.QRect(50, 90, 701, 31))
         self.label_19.setStyleSheet("font: 12pt \"Segoe UI Variable\";")
@@ -395,6 +395,13 @@ class Ui_MainWindow(object):
         self.pushButton_10 = QtWidgets.QPushButton(self.tab_3)
         self.pushButton_10.setGeometry(QtCore.QRect(720, 520, 93, 28))
         self.pushButton_10.setObjectName("pushButton_10")
+        self.label_33 = QtWidgets.QLabel(self.tab_3)
+        self.label_33.setGeometry(QtCore.QRect(310, 580, 311, 31))
+        self.label_33.setStyleSheet("font: 12pt \"Segoe UI Variable\";")
+        self.label_33.setObjectName("label_32")
+        self.pushButton_11 = QtWidgets.QPushButton(self.tab_3)
+        self.pushButton_11.setGeometry(QtCore.QRect(720, 580, 93, 28))
+        self.pushButton_11.setObjectName("pushButton_10")
         self.tabWidget.addTab(self.tab_3, "")
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -488,6 +495,9 @@ class Ui_MainWindow(object):
         self.label_32.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar estatus de las tareas:</p></body></html>"))
         self.pushButton_10.setText(_translate("MainWindow", "Descargar"))
         self.pushButton_10.clicked.connect(self.get_tasks_status)
+        self.label_33.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\">Descargar inventario:</p></body></html>"))
+        self.pushButton_11.setText(_translate("MainWindow", "Descargar"))
+        self.pushButton_11.clicked.connect(self.get_inventory)
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Configuración"))
 
 # Funciones propias
@@ -503,7 +513,7 @@ class Ui_MainWindow(object):
         self.listView_3.setModel(model)
 
         for i in vulnerabilities:
-            str_item = f"{i}"
+            str_item = f"El agente {i['agent_id']} tiene la vulnerabilidad {i['title']}"
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
@@ -517,7 +527,7 @@ class Ui_MainWindow(object):
         self.listView_4.setModel(model)
 
         for i in vulnerabilities:
-            str_item = f"{i}"
+            str_item = f"El agente {i['agent_id']} tiene la vulnerabilidad {i['title']}"
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
@@ -531,7 +541,7 @@ class Ui_MainWindow(object):
         self.listView_5.setModel(model)
 
         for i in vulnerabilities:
-            str_item = f"{i}"
+            str_item = f"El agente {i['agent_id']} tiene la vulnerabilidad {i['title']}"
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
@@ -545,7 +555,7 @@ class Ui_MainWindow(object):
         self.listView_6.setModel(model)
 
         for i in vulnerabilities:
-            str_item = f"{i}"
+            str_item = f"El agente {i['agent_id']} tiene la vulnerabilidad {i['title']}"
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
@@ -595,7 +605,7 @@ class Ui_MainWindow(object):
         api_res = APIMethods.get_vulnerabilities_with_agents(self.header)
         print("Method worked")
         for key in api_res.keys():
-            if len(api_res[key] > 1):
+            if len(api_res[key]) > 1:
                 string = "Agents "
                 for agent in api_res[key]:
                     string += f"{agent}, "
@@ -604,13 +614,14 @@ class Ui_MainWindow(object):
                 model.appendRow(item)
     
     def top_10_vulnerabilities(self):
-        top_10 = APIMethods.top_n_vulnerabilities(10, self.header)
+        top_10 = APIMethods.top_n_vulnerabilities(100, self.header)
         # top_10 = [('uno', 1), ('dos', 2), ('tres', 3)]
         model = QtGui.QStandardItemModel()
         self.listView_2.setModel(model)
         
         for i in top_10:
-            str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            # str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            str_item = i
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
         
@@ -624,7 +635,7 @@ class Ui_MainWindow(object):
         self.listView.setModel(model)
         
         for i in top_10:
-            # str_item = f"{i[0]} se encuentra en {i[1]} agentes"
+            str_item = f"El agente {i['agent']} tiene {i['vulnerabilities']} vulnerabilidades"
             str_item = i
             item = QtGui.QStandardItem(str(str_item))
             model.appendRow(item)
@@ -635,22 +646,59 @@ class Ui_MainWindow(object):
     def save_configuration(self):
         json_conf = APIMethods.get_configuration(self.header)
         JsonToTopicMap.json_to_xtm(json_conf, "configuration")
+        msg = QtWidgets.QMessageBox()
+        msg.setText("Se ha descargado correctamente")
     
     def save_logs(self):
         json_log = APIMethods.get_logs(self.header)
         JsonToTopicMap.json_to_xtm(json_log, "logs")
+        msg = QtWidgets.QMessageBox()
+        msg.setText("Se ha descargado correctamente")
         
     def save_log_summary(self):
         json_log = APIMethods.get_log_summary(self.header)
         JsonToTopicMap.json_to_xtm(json_log, "log_summary")
+        msg = QtWidgets.QMessageBox()
+        msg.setText("Se ha descargado correctamente")
 
     def save_groups(self):
         json_groups = APIMethods.get_groups(self.header)
         JsonToTopicMap.json_to_xtm(json_groups, "groups")
+        msg = QtWidgets.QMessageBox()
+        msg.setText("Se ha descargado correctamente")
 
     def get_tasks_status(self):
         json_tasks = APIMethods.get_task_status(self.header)
         JsonToTopicMap.json_to_xtm(json_tasks, "tasks_status")
+        msg = QtWidgets.QMessageBox()
+        msg.setText("Se ha descargado correctamente")
+    
+    def get_inventory(self):
+        json_inv = []
+        json_inv.append(APIMethods.get_inv_hardware(self.header))
+        json_inv.append(APIMethods.get_inv_hotfixes(self.header))
+        json_inv.append(APIMethods.get_inv_netaddr(self.header))
+        json_inv.append(APIMethods.get_inv_netiface(self.header))
+        json_inv.append(APIMethods.get_inv_netproto(self.header))
+        json_inv.append(APIMethods.get_inv_os(self.header))
+        json_inv.append(APIMethods.get_inv_packages(self.header))
+        json_inv.append(APIMethods.get_inv_ports(self.header))
+        json_inv.append(APIMethods.get_inv_processes(self.header))
+        inv_dict = {
+            "0" : "hardware",
+            "1" : "hotfixes",
+            "2" : "netaddr",
+            "3" : "netiface",
+            "4" : "netproto",
+            "5" : "os",
+            "6" : "packages",
+            "7" : "ports",
+            "8" : "processes",
+        }
+        for idx, inv_item in enumerate(json_inv):
+            JsonToTopicMap.json_to_xtm(inv_item, inv_dict.get(str(idx)))
+        msg = QtWidgets.QMessageBox()
+        msg.setText("Se ha descargado correctamente")
 
 if __name__ == "__main__":
     import sys

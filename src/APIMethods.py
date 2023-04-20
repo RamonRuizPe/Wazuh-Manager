@@ -95,32 +95,18 @@ def get_vulnerabilities_with_agents(request_header: dict) -> dict:
 
     response_agents = requests.get(url + "/agents", headers=request_header, verify=False)
     agents = json.loads(response_agents.text)["data"]["affected_items"]
-
+                
     for agent in agents:
         agent_id = agent["id"]
         response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
         vulnerabilities = json.loads(response_vul.text)["data"]["affected_items"]
         for vulnerability in vulnerabilities:
             band = False
-            for key in result:
-                if key == vulnerability["cve"]:
-                    band = True
-                    result[key]["agents"].append(agent_id)
-                    break
+            if vulnerability["cve"] in result:
+                result[vulnerability["cve"]].append(agent_id)
+                band = True
             if band == False:
-                result[vulnerability["cve"]]["agents"] = [agent_id]
-                
-    # for agent in agents:
-    #     agent_id = agent["id"]
-    #     response_vul = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, verify=False)
-    #     vulnerabilities = json.loads(response_vul.text)["data"]["affected_items"]
-    #     for vulnerability in vulnerabilities:
-    #         band = False
-    #         if vulnerability["cve"] in result:
-    #             result[vulnerability["cve"]]["agents"].append(agent_id)
-    #             band = True
-    #         if band == False:
-    #             result[vulnerability["cve"]] = {"agents": [agent_id]}
+                result[vulnerability["cve"]] = [agent_id]
 
     return result
 

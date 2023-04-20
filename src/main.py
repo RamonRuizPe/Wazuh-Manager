@@ -593,15 +593,14 @@ class Ui_MainWindow(object):
         model = QtGui.QStandardItemModel()
         self.listView_9.setModel(model)
         api_res = APIMethods.get_vulnerabilities_with_agents(self.header)
-        for key, value in api_res:
-            if len(value) > 1:
+        for key in api_res.keys():
+            if len(api_res[key]):
                 string = "Agents "
-                for agent in value:
+                for agent in api_res[key]:
                     str += f"{agent}, "
                 string = f" have {key} as a common vulnerability."
                 item = QtGui.QStandardItem(string)
                 model.appendRow(item)
-
     
     def top_10_vulnerabilities(self):
         top_10 = APIMethods.top_n_vulnerabilities(10, self.header)

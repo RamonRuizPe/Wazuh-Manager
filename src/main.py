@@ -595,7 +595,7 @@ class Ui_MainWindow(object):
         api_res = APIMethods.get_vulnerabilities_with_agents(self.header)
         print("Method worked")
         for key in api_res.keys():
-            if len(api_res[key]):
+            if len(api_res[key] > 1):
                 string = "Agents "
                 for agent in api_res[key]:
                     string += f"{agent}, "

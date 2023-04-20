@@ -68,26 +68,25 @@ def vulnerabilities_by_keyword(keyword, request_header: dict):
 
 def upgrade_agents(agents: str, request_header: dict) -> str :
 
-    response = requests.put(url + '/agents?limit=20/upgrade', params = { 'agents_list' : agents }, headers=request_header, verify=False)
-    print(response.json())
+    response = requests.put(url + f'/agents/upgrade?agents_list={agents}', headers=request_header, verify=False)
+    
     return response.json()["message"]
 
 def restart_agents(agents: str, request_header: dict) -> str :
 
-    response = requests.put(url + '/agents?limit=20/restart', params = { 'agents_list' : agents }, headers=request_header, verify=False)
-
+    response = requests.put(url + f'/agents/restart?agents_list={agents}', headers=request_header, verify=False)
+    
     return response.json()["message"]
 
 def delete_agents(agents: str, request_header: dict) -> str :
 
-    params = { 'pretty' : True, 'older_than' : '0s', 'agents_list' : agents }
-
-    response = requests.put(url + '/agents?limit=20/restart', params = params, headers=request_header, verify=False)
-
+    response = requests.delete(url + f'/agents?pretty=true&older_than=0s&status=all&agents_list={agents}', headers=request_header, verify=False)
+    
     return response.json()["message"]
 
+
 # Show agents that share a vulnerability
-# TODO: create logic for requirement
+
 def get_vulnerabilities_with_agents(request_header: dict) -> dict:
 
     result : dict[str : [str]] = {}

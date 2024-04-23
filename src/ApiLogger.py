@@ -8,11 +8,10 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Configuración de la conexión a la API
 protocol = 'https'
-host = 'huzaw.up.edu.mx'
-# host = "172.25.180.72"
+host = '54.149.137.67'
 port = 55000
-user = 'wazuh-wui'
-password = 'ndlK?HpYHC6fP9a9fj+bZXRbLo1NMky9'
+user = ' 0201031 '
+password = '2010312024$'
 # user = "wazuh"
 # password = "wazuh"
 login_endpoint = 'security/user/authenticate'

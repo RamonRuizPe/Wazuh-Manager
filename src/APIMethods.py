@@ -32,12 +32,12 @@ def vulnerability_by_criticality(severity, request_header: dict):
         agent_id = agent['id']
         params = {"severity": severity}
         response = requests.get(url + f"/vulnerability/{agent_id}", headers=request_header, params=params, verify=False)
-
-        agent_vulnerabilities = response.json()["data"]["affected_items"]
-        for vulnerability in agent_vulnerabilities:
-            vulnerability["agent_id"] = agent_id
-        
-        vulnerabilities.extend(agent_vulnerabilities)
+        if response.json().get('data'):
+            agent_vulnerabilities = response.json()["data"]["affected_items"]
+            for vulnerability in agent_vulnerabilities:
+                vulnerability["agent_id"] = agent_id
+            
+            vulnerabilities.extend(agent_vulnerabilities)
     
     return vulnerabilities
 
